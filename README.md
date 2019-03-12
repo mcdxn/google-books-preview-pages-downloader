@@ -1,4 +1,3 @@
 # Gopre
 
-Gopre is a Google Books Preview link viewer.
-
+Gopre allows you to get the links of the Google Books Preview pages.
