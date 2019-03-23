@@ -1,3 +1,3 @@
 # Gopre
 
-Gopre allows you to get the links of the Google Books Preview pages.
+Gopre allows you to get the links of Google Books Preview pages.
