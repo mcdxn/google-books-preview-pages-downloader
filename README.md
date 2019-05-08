@@ -8,5 +8,5 @@ How to use:
 - Cut-and-paste the GBPPD JavaScript code on the console and press ENTER.
 - Then start GBPPD by typing on the console gbppd.start().
 - Then begin scrolling the book preview pages untill every page is loaded for GBPPD to capture them.
-- Then type gbppd.finish() on the console once your finish.
+- Then type gbppd.finish() on the console once you are finish.
 - GBPPD will open a new tab with a list of all the links to the preview pages.
