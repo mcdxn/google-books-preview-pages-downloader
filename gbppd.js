@@ -26,15 +26,33 @@ var gbppd = (function (){
         }
     }
 
-    let movePage = function(){
+    let movePage = function() {
         scrollCount += scrollAmount;
-        if(scrollCount < scrollHeight){
+        if(scrollCount < scrollHeight) {
             scroll[0].scrollBy(0, scrollAmount);
-        }else{
+        }else {
             clearInterval(intervalId);
         }
     }
     
+    let downloadAllPages = function(a) {
+        function next(i){
+            if(i >= a.length) {
+                return;
+            }
+
+            if(a[i].href.match(/books.google./)) {
+                a[i].click();
+            }
+            
+            setTimeout(function() {
+                next(i + 1);
+            }, 500);
+        }
+
+        next(0);
+    }
+        
     return {
 
         start: function(){
@@ -48,11 +66,21 @@ var gbppd = (function (){
                 let uniqLinks = new Set(links);
                 let newWindow = window.open();
             
-                for(let link of uniqLinks) {
-                    newWindow.document.write('<a href="'+link+'">'+link+"</a>"+"<br>");
+                let pageNum = 0;
+                
+                for(let link of uniqLinks) {                      
+                    newWindow.document.write('<a href="'+link+'" download="' + 'page-0' + pageNum + '">'+link+"</a>"+"<br>");                    
+                    pageNum = pageNum + 1;
                 }
-                observer.disconnect();
-                observer = null;
+
+                let anchors = newWindow.document.getElementsByTagName("a");
+
+                downloadAllPages(anchors);
+
+                if(observer) {
+                    observer.disconnect();
+                    observer = null;
+                }
             }
         }
     };
