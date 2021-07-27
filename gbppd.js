@@ -3,6 +3,11 @@ var gbppd = (function (){
     let observer = null;
     let links = [];
     let targets = [];
+
+    let scroll = document.getElementsByClassName("overflow-scrolling");
+    let scrollHeight = scroll[0].scrollHeight;
+    let scrollAmount = 700;
+    let scrollCount = 0;
     let intervalId = '';
 
     let callback = function(mutationsList, observer) {
@@ -21,28 +26,34 @@ var gbppd = (function (){
         }
     }
 
-    let move_page = function(){
-        $('#viewport > div:nth-child(2) > div:nth-child(2)').click()
+    let movePage = function(){
+        scrollCount += scrollAmount;
+        if(scrollCount < scrollHeight){
+            scroll[0].scrollBy(0, scrollAmount);
+        }else{
+            clearInterval(intervalId);
+        }
     }
-
     
-    return { 
+    return {
+
         start: function(){
             observer = new MutationObserver(callback);
             observer.observe(book, { attributes: true, childList: true, subtree: true });
-            intervalId = setInterval(move_page, 500);
+            intervalId = setInterval(movePage, 500);
         },
 
         finish: function(){
-            let uniqLinks = new Set(links);
-            let newWindow = window.open();
-        
-            for(let link of uniqLinks) {
-                newWindow.document.write('<a href="'+link+'">'+link+"</a>"+"<br>");
+            {           
+                let uniqLinks = new Set(links);
+                let newWindow = window.open();
+            
+                for(let link of uniqLinks) {
+                    newWindow.document.write('<a href="'+link+'">'+link+"</a>"+"<br>");
+                }
+                observer.disconnect();
+                observer = null;
             }
-            observer.disconnect();
-            observer = null;
-            clearInterval(intervalId);
         }
     };
 
