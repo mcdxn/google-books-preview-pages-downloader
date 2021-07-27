@@ -4,7 +4,7 @@ GBPPD allows you to get the links of Google Books Preview pages.
 
 How to use:
 
-- Once you are on the start page of the book you are previewing, open Chrome's JavaScript Console (Cmd+Opt+J).
+- Once you are on the start page of the book you are previewing, right click and choose Inspect to open Chrome's JavaScript console. This is an important step, otherwise Chrome will not load the iframe.
 - Copy the GBPPD JavaScript code and paste it on the console, then press ENTER.
 - Start GBPPD by typing on the console gbppd.start(), then press ENTER.
 - It will start scrolling automatically the pages and each time a page loads the GBPPD will capture it.
