@@ -69,7 +69,7 @@ var gbppd = (function (){
                 let pageNum = 0;
                 
                 for(let link of uniqLinks) {                      
-                    newWindow.document.write('<a href="'+link+'" download="' + 'page-0' + pageNum + '">'+link+"</a>"+"<br>");                    
+                    newWindow.document.write('<a href="' + link + '" download="' + 'page-0' + pageNum + '">' + link + "</a>" + "<br>");                    
                     pageNum = pageNum + 1;
                 }
 
