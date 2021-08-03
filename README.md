@@ -1,4 +1,4 @@
-# Google Books Preview Pages Downloader (GBPPD)
+# JavaScript Google Books Preview Pages Downloader (GBPPD)
 
 GBPPD downloads Google Books Preview pages automatically.
 
