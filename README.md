@@ -10,3 +10,8 @@ How to use:
 - It will start scrolling automatically the pages and each time a page loads the GBPPD will capture it.
 - After reaching the last page, type **gbppd.finish()** on the console, then press ENTER.
 - GBPPD will open a new tab with a list of all the links of the preview pages and then download them all automatically.
+
+Watch video here:
+
+Old: https://youtu.be/cCFtlXJPoJ0
+New: https://youtu.be/LsbGFLBiPWQ
