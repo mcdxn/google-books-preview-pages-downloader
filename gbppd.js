@@ -8,7 +8,7 @@ var gbppd = (function () {
   let scrollHeight = scroll ? scroll[0].scrollHeight : 0;
   let scrollAmount = 800;
   let scrollCount = 0;
-  let intervalId = "";
+  let intervalId = null;
 
   let callback = function (mutationsList, observer) {
     for (let mutation of mutationsList) {
@@ -33,11 +33,12 @@ var gbppd = (function () {
     }
   };
 
-  let downloadAllPages = function (a) {
+  let downloadAllPages = function (a, callback) {
     let timeOutId = null;
     function next(i) {
       if (i >= a.length) {
         if (timeOutId) clearTimeout(timeOutId);
+        callback();
         return;
       }
 
@@ -67,12 +68,12 @@ var gbppd = (function () {
     finish: function () {
       {
         let uniqLinks = new Set(links);
-        let newWindow = window.open();
+        let finishWindow = window.open();
 
         let pageNum = 0;
 
         for (let link of uniqLinks) {
-          newWindow.document.write(
+          finishWindow.document.write(
             '<a href="' +
               link +
               '" download="' +
@@ -86,9 +87,11 @@ var gbppd = (function () {
           pageNum = pageNum + 1;
         }
 
-        let anchors = newWindow.document.getElementsByTagName("a");
+        let anchors = finishWindow.document.getElementsByTagName("a");
 
-        downloadAllPages(anchors);
+        downloadAllPages(anchors, () => {
+          finishWindow.document.write("<h1>FINISHED DOWNLOADING.</h1>");
+        });
 
         if (observer) {
           observer.disconnect();
@@ -96,7 +99,6 @@ var gbppd = (function () {
         }
 
         clearInterval(intervalId);
-        clearTimeout(timeOutId);
       }
     },
   };
