@@ -5,7 +5,7 @@ var gbppd = (function () {
   let targets = [];
 
   let scroll = document.getElementsByClassName("overflow-scrolling");
-  let scrollHeight = scroll[0].scrollHeight;
+  let scrollHeight = scroll ? scroll[0].scrollHeight : 0;
   let scrollAmount = 800;
   let scrollCount = 0;
   let intervalId = "";
@@ -34,8 +34,10 @@ var gbppd = (function () {
   };
 
   let downloadAllPages = function (a) {
+    let timeOutId = null;
     function next(i) {
       if (i >= a.length) {
+        if (timeOutId) clearTimeout(timeOutId);
         return;
       }
 
@@ -43,7 +45,7 @@ var gbppd = (function () {
         a[i].click();
       }
 
-      setTimeout(function () {
+      timeOutId = setTimeout(function () {
         next(i + 1);
       }, 500);
     }
@@ -92,6 +94,9 @@ var gbppd = (function () {
           observer.disconnect();
           observer = null;
         }
+
+        clearInterval(intervalId);
+        clearTimeout(timeOutId);
       }
     },
   };

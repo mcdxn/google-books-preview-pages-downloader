@@ -4,7 +4,7 @@ var gbppd = (function () {
     n = [],
     o = [],
     l = document.getElementsByClassName("overflow-scrolling"),
-    r = l[0].scrollHeight,
+    r = l ? l[0].scrollHeight : 0,
     i = 0,
     a = "",
     c = function (e, t) {
@@ -15,7 +15,7 @@ var gbppd = (function () {
         )
           for (let e of o) n.push(e.src);
     },
-    s = function () {
+    u = function () {
       (i += Math.floor(751 * Math.random()) + 50),
         i < r ? l[0].scrollBy(0, 800) : clearInterval(a);
     };
@@ -23,30 +23,33 @@ var gbppd = (function () {
     start: function () {
       (t = new MutationObserver(c)),
         t.observe(e, { attributes: !0, childList: !0, subtree: !0 }),
-        (a = setInterval(s, 500));
+        (a = setInterval(u, 500));
     },
     finish: function () {
       {
-        let o = new Set(n),
-          l = window.open(),
-          r = 0;
-        for (let e of o)
-          l.document.write(
-            '<a href="' + e + '" download="page-0' + r + '">' + e + "</a><br>"
+        let e = new Set(n),
+          o = window.open(),
+          l = 0;
+        for (let t of e)
+          o.document.write(
+            '<a href="' + t + '" download="page-0' + l + '">' + t + "</a><br>"
           ),
-            (r += 1);
-        let i = l.document.getElementsByTagName("a");
-        (e = i),
-          (function t(n) {
-            n >= e.length ||
-              (e[n].href.match(/books.google./) && e[n].click(),
-              setTimeout(function () {
-                t(n + 1);
-              }, 500));
-          })(0),
-          t && (t.disconnect(), (t = null));
+            (l += 1);
+        !(function (e) {
+          let t = null;
+          !(function n(o) {
+            o >= e.length
+              ? t && clearTimeout(t)
+              : (e[o].href.match(/books.google./) && e[o].click(),
+                (t = setTimeout(function () {
+                  n(o + 1);
+                }, 500)));
+          })(0);
+        })(o.document.getElementsByTagName("a")),
+          t && (t.disconnect(), (t = null)),
+          clearInterval(a),
+          clearTimeout(timeOutId);
       }
-      var e;
     },
   };
 })();
